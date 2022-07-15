@@ -41,7 +41,7 @@ bazel bulid //:main
 ./bazel-bin/main
 ~~~
 
-也可以这样运行
+或者也可以这样运行
 ~~~cpp
 bazel run //:main
 ~~~
@@ -64,6 +64,7 @@ enum SeverityLevel
 
 
 4个错误级别的使用
+严重程度分级
 ~~~cpp
 LOG(INFO) << "info test";  //输出一个Info日志
 LOG(WARNING) << "warning test";  //输出一个Warning日志
@@ -75,7 +76,11 @@ LOG(FATAL) << "fatal test";  //输出一个Fatal日志，这是最严重的日�
 使用结果
 ![](https://img-blog.csdnimg.cn/8323dd9303e14ca1a60446fd20fdde67.png)
 
-## 错误信息
+>ERROR和FATAL除了会写到日志里面，还会打印到标准错误里面
+>也就是说，WARNING和INFO不会打印到标准错误里面去
+
+
+## 日志信息
 >E20220715 10:10:21.065380 25803 main.cc:8] HELLO WORLD
 
 >* E:错误级别 
@@ -112,10 +117,17 @@ FLAGS_log_dir="./log";
 ~~~
 这个要放在init之前
 
-* FLAGS_logtostderr=0/1/2/3;//这个可以设置错误级别，0的话INFO也可以打印出来
+* FLAGS_logtostderr=0/1;//这个默认是false（不打印到标准错误里面）（设置true，就可以把信息打印到标准错误里面）
+* FLAGS_stderrthreshold；
+>默认是=2，就是可以把>=它的严重等级信息也同时打印到标准错误当中
 ~~~cpp
-FLAGS_logtostderr=0;//这样的话INFO就能打印出来了,
+FLAGS_logtostderr=0;//这样的话INFO就能打印出来了,默认是false
+
+FLAGS_alsologtostderr=true;//既打印到文件里面，又打印到标准输出里面
+FLAGS_stderrthreshold=0/1/2/3；
 ~~~
+这个需要的话，还需要我们自己去设置
+
 
 
 ## 条件判断
