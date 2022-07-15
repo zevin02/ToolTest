@@ -41,7 +41,7 @@ bazel bulid //:main
 ./bazel-bin/main
 ~~~
 
-或者也可以这样运行
+或者也可以这样运行,但是不推荐
 ~~~cpp
 bazel run //:main
 ~~~
